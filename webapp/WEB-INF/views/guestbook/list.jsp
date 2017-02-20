@@ -8,7 +8,7 @@
 <head>
 <title>mysite</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
-<link href="${pageContext.request.contextPath }/assets/css/guestbook.css?a=2" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath }/assets/css/guestbook.css?a=1" rel="stylesheet" type="text/css">
 </head>
 <body>
 	<div id="container">
@@ -16,10 +16,9 @@
 		<div id="content">
 			<div id="guestbook">
 				<h1>방명록</h1>
-				<form action="${pageContext.request.contextPath }/guestbook" method="post">
-					<input type="hidden" name="a" value="add">
+				<form action="${pageContext.request.contextPath }/guestbook/add" method="post">
 					<input type="text" name="name" placeholder="이름">
-					<input type="password" name="pass" placeholder="비밀번호">
+					<input type="password" name="password" placeholder="비밀번호">
 					<textarea name="content" placeholder="내용을 입력해 주세요."></textarea>
 					<input type="submit" value="보내기" />
 				</form>
@@ -32,7 +31,7 @@
 								${fn:replace(vo.content, newLine, "<br>" ) }
 							</p>
 							<strong>${vo.regDate }</strong>
-							<a href="${pageContext.request.contextPath }/guestbook?a=deleteform&no=${vo.no }" title="삭제">삭제</a>
+							<a href="${pageContext.request.contextPath }/guestbook/deleteform/${vo.no }" title="삭제">삭제</a>
 						</li>
 					</c:forEach>
 				</ul>

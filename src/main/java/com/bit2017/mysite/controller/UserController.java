@@ -94,9 +94,9 @@ public class UserController {
 		
 		userVo.setNo( authUser.getNo() );
 		
-		System.out.println( userVo );
 		userService.updateUser( userVo );
 
+		authUser.setName( userVo.getName() );
 		return "redirect:/user/modifyform";
 	}
 	

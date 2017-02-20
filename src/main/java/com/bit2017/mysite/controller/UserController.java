@@ -4,6 +4,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -58,4 +59,37 @@ public class UserController {
 		session.setAttribute( "authUser", userVo );
 		return "redirect:/main";
 	}
+	
+	@RequestMapping( "/logout" )
+	public String logout( HttpSession session ){
+		session.removeAttribute( "authUser" );
+		session.invalidate();
+		return "redirect:/main";
+	}
+	
+	@RequestMapping( "/modifyform" )
+	public String modifyform(
+		HttpSession session,
+		Model model ){
+		UserVo authUser = (UserVo)session.getAttribute( "authUser" );
+		if( authUser == null ) {
+			return "redirect:/main";
+		}
+		
+		UserVo userVo = userService.getUser( authUser.getNo() );
+		model.addAttribute( "userVo", userVo );
+		return "user/modifyform";
+	}
+	
+	/*
+	@Auth
+	@RequestMapping( "/modifyform" )
+	public String modifyform(
+		@AuthUser UserVo authUser,
+		Model model ){
+		UserVo userVo = userService.getUser( authUser.getNo() );
+		model.addAttribute( "userVo", userVo );
+		return "user/modifyform";
+	}
+	*/	
 }

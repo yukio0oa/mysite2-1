@@ -161,4 +161,52 @@ public class UserDao {
 		
 		return result;
 	}
+	
+	public boolean update( UserVo userVo ) {
+		boolean result = false;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			conn = getConnection();
+			
+			String sql = null;
+			if( "".equals( userVo.getPassword() ) ) {
+				sql = "update users set name=?, gender=? where no = ?";
+			} else {
+				sql = "update users set name=?, password=?, gender=? where no = ?";
+			}
+			pstmt = conn.prepareStatement(sql);
+			
+			if( "".equals( userVo.getPassword() ) ) {
+				pstmt.setString( 1, userVo.getName() );
+				pstmt.setString( 2, userVo.getGender() );
+				pstmt.setLong( 3, userVo.getNo() );
+			} else {
+				pstmt.setString( 1, userVo.getName() );
+				pstmt.setString( 2, userVo.getPassword() );
+				pstmt.setString( 3, userVo.getGender() );
+				pstmt.setLong( 4, userVo.getNo() );
+			}
+			
+			int count = pstmt.executeUpdate();
+			
+			result = count == 1; 
+		} catch( SQLException e ) {
+			System.out.println( "error:" + e );
+		} finally {
+			try {
+				if( pstmt != null ) {
+					pstmt.close();
+				}
+				if( conn != null ) {
+					conn.close();
+				}
+			} catch( SQLException e ) {
+				System.out.println( "error:" + e );
+			}
+		}
+		
+		return result;
+	}	
 }

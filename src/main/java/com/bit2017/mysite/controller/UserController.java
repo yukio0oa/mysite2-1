@@ -80,6 +80,25 @@ public class UserController {
 		model.addAttribute( "userVo", userVo );
 		return "user/modifyform";
 	}
+
+	@RequestMapping( "/modify" )
+	public String modify(
+		HttpSession session,
+		@ModelAttribute UserVo userVo){
+		
+		// 인증 여부
+		UserVo authUser = (UserVo)session.getAttribute( "authUser" );
+		if( authUser == null ) {
+			return "redirect:/main";
+		}
+		
+		userVo.setNo( authUser.getNo() );
+		
+		System.out.println( userVo );
+		userService.updateUser( userVo );
+
+		return "redirect:/user/modifyform";
+	}
 	
 	/*
 	@Auth

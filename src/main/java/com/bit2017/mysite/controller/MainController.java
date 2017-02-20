@@ -8,6 +8,7 @@ public class MainController {
 	
 	@RequestMapping( "/main" )
 	public String main(){
+		System.out.println( "hello!!" );
 		return "main/index";
 	}
 }

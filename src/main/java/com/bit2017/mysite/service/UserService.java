@@ -21,4 +21,14 @@ public class UserService {
 		UserVo userVo = userDao.get(email, password);
 		return userVo;
 	}
+	
+	public UserVo getUser( Long userNo ) {
+		UserVo userVo = userDao.get(userNo);
+		return userVo;
+	}
+	
+	public boolean updateUser( UserVo userVo ) {
+		boolean result = userDao.update( userVo );
+		return result;
+	}
 }

@@ -3,6 +3,7 @@ package com.bit2017.mysite.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.bit2017.mysite.exception.UserDaoException;
 import com.bit2017.mysite.repository.UserDao;
 import com.bit2017.mysite.vo.UserVo;
 
@@ -18,11 +19,11 @@ public class UserService {
 	}
 	
 	public UserVo getUser( String email, String password ) {
-		UserVo userVo = userDao.get(email, password);
+		UserVo userVo  = userDao.get(email, password);
 		return userVo;
 	}
 	
-	public UserVo getUser( Long userNo ) {
+	public UserVo getUser( Long userNo ){
 		UserVo userVo = userDao.get(userNo);
 		return userVo;
 	}

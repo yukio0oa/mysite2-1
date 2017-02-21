@@ -8,6 +8,7 @@ import java.sql.SQLException;
 
 import org.springframework.stereotype.Repository;
 
+import com.bit2017.mysite.exception.UserDaoException;
 import com.bit2017.mysite.vo.UserVo;
 
 @Repository
@@ -30,7 +31,8 @@ public class UserDao {
 		return conn;
 	}
 	
-	public UserVo get( Long userNo ) {
+	public UserVo get( Long userNo ) 
+		throws UserDaoException {
 		UserVo userVo = null;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -39,7 +41,7 @@ public class UserDao {
 		try {
 			conn = getConnection();
 			
-			String sql = "select no, name, email, gender from users where no=?";
+			String sql = "selec no, name, email, gender from users where no=?";
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setLong( 1, userNo );
@@ -59,7 +61,7 @@ public class UserDao {
 			}
 			
 		} catch (SQLException e) {
-			System.out.println( "error:" + e );
+			throw new UserDaoException( e.getMessage() );
 		} finally {
 			try {
 				if( rs != null ) {
@@ -72,7 +74,7 @@ public class UserDao {
 					conn.close();
 				}
 			} catch (SQLException e) {
-				System.out.println( "error:" + e );
+				throw new UserDaoException( e.getMessage() );
 			}  
 		}
 		

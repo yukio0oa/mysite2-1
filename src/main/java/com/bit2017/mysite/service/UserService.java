@@ -2,8 +2,6 @@ package com.bit2017.mysite.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.bit2017.mysite.exception.UserDaoException;
 import com.bit2017.mysite.repository.UserDao;
 import com.bit2017.mysite.vo.UserVo;
 

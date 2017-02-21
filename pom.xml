@@ -5,11 +5,11 @@
 	<artifactId>mysite2</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
-	
+
 	<properties>
 		<org.springframework-version>4.0.1.RELEASE</org.springframework-version>
 	</properties>
-	
+
 	<dependencies>
 
 		<!-- Spring Container(core) -->
@@ -31,6 +31,26 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
 			<version>${org.springframework-version}</version>
+		</dependency>
+
+		<!-- spring jdbc -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>${org.springframework-version}</version>
+		</dependency>
+
+		<!-- MyBatis -->
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis</artifactId>
+			<version>3.2.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis-spring</artifactId>
+			<version>1.2.0</version>
 		</dependency>
 
 		<!-- JSTL -->

@@ -8,17 +8,22 @@
 		 select	 no, 
 				 name,
 				 content,
-				 to_char(reg_date, 'yyyy-mm-dd') 
+				 to_char(reg_date, 'yyyy-mm-dd') as regDate 
 		    from guestbook
 		order by reg_date desc
 		]]>
 	</select>
 	
 	<insert id="insert" parameterType="guestbookvo">
+		<selectKey keyProperty="no" resultType="long" order="BEFORE">
+			<![CDATA[
+			select seq_guestbook.nextval from dual	
+			]]>
+		</selectKey>
 		<![CDATA[
 		insert
 		  into guestbook 
-		values( seq_guestbook.nextval, #{name }, #{password }, #{content }, sysdate )
+		values( #{no }, #{name }, #{password }, #{content }, sysdate )
 		]]>
 	</insert>
 

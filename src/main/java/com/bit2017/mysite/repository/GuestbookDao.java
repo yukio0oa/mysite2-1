@@ -14,6 +14,8 @@ public class GuestbookDao {
 	
 	public boolean insert( GuestbookVo guestbookVo ) {
 		int count = sqlSession.insert( "guestbook.insert", guestbookVo );
+		// insert 후에 PK 받아내기
+		System.out.println( guestbookVo );
 		return count == 1;
 	}
 	

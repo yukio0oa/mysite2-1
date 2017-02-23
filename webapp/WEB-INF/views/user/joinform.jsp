@@ -95,7 +95,7 @@ $(function(){
 		  });
 	});
 	
-	$( "#name" ).change( function(){
+	$( "#email" ).change( function(){
 		
 	});
 });

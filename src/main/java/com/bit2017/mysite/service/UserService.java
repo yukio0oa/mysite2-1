@@ -16,6 +16,11 @@ public class UserService {
 		return result;
 	}
 	
+	public boolean exists( String email ) {
+		UserVo userVo = userDao.get( email );
+		return (userVo != null );
+	}
+	
 	public UserVo getUser( String email, String password ) {
 		UserVo userVo  = userDao.get(email, password);
 		return userVo;

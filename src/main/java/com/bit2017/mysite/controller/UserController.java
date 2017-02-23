@@ -8,7 +8,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.bit2017.mysite.dto.JSONResult;
 import com.bit2017.mysite.service.UserService;
 import com.bit2017.mysite.vo.UserVo;
 
@@ -18,6 +20,21 @@ public class UserController {
 	
 	@Autowired
 	private UserService userService;
+	
+	@ResponseBody
+	@RequestMapping( "/checkemail" )
+	public JSONResult checkEmail(
+		@RequestParam( value="email", required=true, defaultValue="") 
+		String email ){
+		
+		boolean isExists = userService.exists( email );
+		
+		JSONResult json = new JSONResult();
+		json.setResult( "success" );
+		json.setData( isExists ? "exist" : "not exist" );
+		
+		return json;
+	}
 	
 	@RequestMapping( "/joinform" )
 	public String joinform(){

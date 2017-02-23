@@ -19,6 +19,11 @@ public class UserDao {
 		return userVo;		
 	}
 	
+	public UserVo get( String email ) {
+		UserVo userVo = sqlSession.selectOne( "user.getByEmail", email );	
+		return userVo;
+	}
+	
 	public UserVo get( String email, String password ) {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put( "email", email );

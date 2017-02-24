@@ -58,32 +58,6 @@ public class UserController {
 		return "user/loginform";
 	}
 	
-	@RequestMapping( "/login" )
-	public String login(
-		@RequestParam( value="email", required=true, defaultValue="" )
-		String email,
-		@RequestParam( value="password", required=true, defaultValue="" )
-		String password,
-		HttpSession session ) {
-		
-		UserVo userVo = userService.getUser( email, password );
-		if( userVo == null ) {
-			return "redirect:/user/loginform?result=fail";
-			//return "user/loginform_error";
-		}
-		
-		//인증 처리
-		session.setAttribute( "authUser", userVo );
-		return "redirect:/main";
-	}
-	
-	@RequestMapping( "/logout" )
-	public String logout( HttpSession session ){
-		session.removeAttribute( "authUser" );
-		session.invalidate();
-		return "redirect:/main";
-	}
-	
 	@RequestMapping( "/modifyform" )
 	public String modifyform(
 		HttpSession session,

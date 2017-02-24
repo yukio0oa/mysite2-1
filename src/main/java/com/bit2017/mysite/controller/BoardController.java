@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.bit2017.mysite.service.BoardService;
 import com.bit2017.mysite.vo.BoardVo;
 import com.bit2017.mysite.vo.UserVo;
+import com.bit2017.security.Auth;
 import com.bit2017.web.WebUtil;
 
 @Controller
@@ -52,17 +53,13 @@ public class BoardController {
 		return "board/view";
 	}
 	
+	@Auth
 	@RequestMapping( value="/write", method=RequestMethod.GET )
-	public String write( HttpSession session ) {
-		// 인증 체크
-		UserVo authUser = (UserVo)session.getAttribute( "authUser" );
-		if( authUser == null ){
-			return "redirect:/user/loginform";
-		}
-		
+	public String write() {
 		return "board/write";
 	}
 	
+	@Auth
 	@RequestMapping( value="/write", method=RequestMethod.POST )
 	public String write(
 		HttpSession session,
@@ -85,19 +82,13 @@ public class BoardController {
 			"&kwd=" + WebUtil.encodeURL( keyword, "UTF-8");
 	}
 	
+	@Auth
 	@RequestMapping( value="/reply", method=RequestMethod.GET )
-	public String reply(
-		HttpSession session,	
+	public String reply(	
 		@RequestParam( value="no", required=true, defaultValue="0") Long no,
 		@RequestParam( value="p", required=true, defaultValue="1") Integer page,
 		@RequestParam( value="kwd", required=true, defaultValue="") String keyword,
 		Model model ){
-		
-		// 인증 체크
-		UserVo authUser = (UserVo)session.getAttribute( "authUser" );
-		if( authUser == null ){
-			return "redirect:/user/loginform";
-		}
 		
 		BoardVo boardVo = boardService.getMessage(no);
 			
@@ -108,19 +99,13 @@ public class BoardController {
 		return "board/reply";
 	}
 	
+	@Auth
 	@RequestMapping( value="/modify", method=RequestMethod.GET )
 	public String modify(
-		HttpSession session,
 		@RequestParam( value="no", required=true, defaultValue="0") Long no,
 		@RequestParam( value="p", required=true, defaultValue="1") Integer page,
 		@RequestParam( value="kwd", required=true, defaultValue="") String keyword,
 		Model model ){
-		
-		// 인증 체크
-		UserVo authUser = (UserVo)session.getAttribute( "authUser" );
-		if( authUser == null ){
-			return "redirect:/user/loginform";
-		}
 		
 		BoardVo boardVo = boardService.getMessage(no);
 			
@@ -131,6 +116,7 @@ public class BoardController {
 		return "board/modify";
 	}
 	
+	@Auth
 	@RequestMapping( value="/modify", method=RequestMethod.POST )
 	public String modify(
 		HttpSession session,
@@ -153,6 +139,7 @@ public class BoardController {
 			"&kwd=" + WebUtil.encodeURL( keyword, "UTF-8");
 	}
 	
+	@Auth
 	@RequestMapping( "/delete" )
 	public String delete(
 		HttpSession session,

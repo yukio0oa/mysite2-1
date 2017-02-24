@@ -18,6 +18,10 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 		Object handler )
 			throws Exception {
 		
+		if( handler instanceof HandlerMethod == false ) {
+			return true;
+		}
+		
 		//1. @Auth를 달고 있는 핸들러 인가?
 		Auth auth = ((HandlerMethod)handler).getMethodAnnotation( Auth.class );
 		if( auth == null ) {

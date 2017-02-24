@@ -28,6 +28,11 @@ public class GuestbookController {
 		return "guestbook/list";
 	}
 	
+	@RequestMapping( "/list-ajax" )
+	public String list() {
+		return "guestbook/list-ajax";
+	}
+	
 	@RequestMapping( "/deleteform/{no}" )
 	public String deleteform( @PathVariable("no") Long no, Model model ){
 		model.addAttribute( "no", no );

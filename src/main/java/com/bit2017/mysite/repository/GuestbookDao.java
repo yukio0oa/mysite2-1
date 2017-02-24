@@ -27,4 +27,9 @@ public class GuestbookDao {
 	public List<GuestbookVo> getList() {
 		return sqlSession.selectList( "guestbook.getList" );
 	}
+	
+	public List<GuestbookVo> getList( int page ) {
+		return sqlSession.selectList( "guestbook.getListByPage", page );
+	}
+	
 }

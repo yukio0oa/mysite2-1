@@ -14,6 +14,23 @@
 		]]>
 	</select>
 	
+	<select
+		id="getListByPage" 
+		resultType="guestbookvo"
+		parameterType="integer">
+		<![CDATA[
+		select * 
+  		  from ( select rownum as rn, a.*
+           		   from (  select no,
+                          		  name,
+	                      		  content,
+	                      		  to_char(reg_date, 'yyyy-mm-dd') as regDate 
+                     		 from guestbook
+                 		 order by no desc ) a )
+  		 where (#{page }-1)*5 + 1  <= rn and rn <= #{page }*5
+		]]>
+	</select>	
+	
 	<insert id="insert" parameterType="guestbookvo">
 		<selectKey keyProperty="no" resultType="long" order="BEFORE">
 			<![CDATA[

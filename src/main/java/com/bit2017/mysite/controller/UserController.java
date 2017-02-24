@@ -28,12 +28,7 @@ public class UserController {
 		String email ){
 		
 		boolean isExists = userService.exists( email );
-		
-		JSONResult json = new JSONResult();
-		json.setResult( "success" );
-		json.setData( isExists ? "exist" : "not exist" );
-		
-		return json;
+		return JSONResult.success( isExists ? "exist" : "not exist" );
 	}
 	
 	@RequestMapping( "/joinform" )

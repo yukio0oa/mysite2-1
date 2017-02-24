@@ -33,9 +33,9 @@ public class GuestbookController {
 	
 	@ResponseBody
 	@RequestMapping( "/add" )
-	public JSONResult add(
-		@ModelAttribute GuestbookVo vo ){
+	public JSONResult add( @ModelAttribute GuestbookVo vo ){
 		guestbookService.addMessage( vo );
+		vo = guestbookService.getMessage( vo.getNo() );
 		return JSONResult.success( vo );
 	}	
 }

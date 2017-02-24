@@ -12,7 +12,7 @@
 <script>
 var isEnd = false;
 var page = 0;
-var render = function( vo ){
+var render = function( vo, prepend ){
 	var html = "<li>" +
 			   "<strong>" + vo.name + "</strong>" +
 			   "<p>" + vo.content + "</p>" +
@@ -20,7 +20,11 @@ var render = function( vo ){
 			   "<a href='' title='삭제'>삭제</a>" +
 			   "</li>";
 	
-	$( "#list" ).append( html );
+	if( prepend == true ) {
+		$( "#list" ).prepend( html );
+	} else {
+		$( "#list" ).append( html );
+	}
 }
 var fetchList = function(){
 	if( isEnd == true ) {
@@ -46,7 +50,7 @@ var fetchList = function(){
 	    	}
 	    	
 	    	$( response.data ).each( function(index, vo){
-	    		render( vo );
+	    		render( vo, false );
 	    	});
 	    },
 	    error: function( XHR, status, error ){
@@ -69,6 +73,7 @@ $(function(){
 		          "content=" + $("textarea").val(),
 		    success: function( response ){
 				console.log( response );
+				render( response.data, true );
 		    },
 		    error: function( XHR, status, error ){
 		       console.error( status + " : " + error );

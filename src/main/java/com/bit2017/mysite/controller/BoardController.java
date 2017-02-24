@@ -2,8 +2,6 @@ package com.bit2017.mysite.controller;
 
 import java.util.Map;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +14,7 @@ import com.bit2017.mysite.service.BoardService;
 import com.bit2017.mysite.vo.BoardVo;
 import com.bit2017.mysite.vo.UserVo;
 import com.bit2017.security.Auth;
+import com.bit2017.security.AuthUser;
 import com.bit2017.web.WebUtil;
 
 @Controller
@@ -62,16 +61,10 @@ public class BoardController {
 	@Auth
 	@RequestMapping( value="/write", method=RequestMethod.POST )
 	public String write(
-		HttpSession session,
+		@AuthUser UserVo authUser,
 		@ModelAttribute BoardVo vo,
 		@RequestParam( value="p", required=true, defaultValue="1") Integer page,
 		@RequestParam( value="kwd", required=true, defaultValue="") String keyword ){
-
-		// 인증 체크
-		UserVo authUser = (UserVo)session.getAttribute( "authUser" );
-		if( authUser == null ){
-			return "redirect:/user/loginform";
-		}
 		
 		vo.setUserNo( authUser.getNo() );
 		boardService.writeMessage( vo );
@@ -119,20 +112,13 @@ public class BoardController {
 	@Auth
 	@RequestMapping( value="/modify", method=RequestMethod.POST )
 	public String modify(
-		HttpSession session,
+		@AuthUser UserVo authUser,
 		@ModelAttribute BoardVo boardVo,
 		@RequestParam( value="p", required=true, defaultValue="1") Integer page,
 		@RequestParam( value="kwd", required=true, defaultValue="") String keyword ){
 		
-		// 인증 체크
-		UserVo authUser = (UserVo)session.getAttribute( "authUser" );
-		if( authUser == null ){
-			return "redirect:/user/loginform";
-		}
-		
 		boardVo.setUserNo( authUser.getNo() );
 		boardService.updateMessage(boardVo);
-		
 		return 
 			"redirect:/board/view" +	
 			"?no=" + boardVo.getNo() + 
@@ -142,20 +128,13 @@ public class BoardController {
 	@Auth
 	@RequestMapping( "/delete" )
 	public String delete(
-		HttpSession session,
+		@AuthUser UserVo authUser,
 		@ModelAttribute BoardVo vo,
 		@RequestParam( value="p", required=true, defaultValue="1") Integer page,
 		@RequestParam( value="kwd", required=true, defaultValue="") String keyword ){
 
-		// 인증 체크
-		UserVo authUser = (UserVo)session.getAttribute( "authUser" );
-		if( authUser == null ){
-			return "redirect:/user/loginform";
-		}
-		
 		vo.setUserNo( authUser.getNo() );
 		boardService.deleteMessage( vo );
-		
 		return 
 			"redirect:/board" +
 			"?p=" + page + 

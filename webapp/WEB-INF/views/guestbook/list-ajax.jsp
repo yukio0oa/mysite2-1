@@ -56,6 +56,28 @@ var fetchList = function(){
 }
 
 $(function(){
+	$( "#write-form" ).submit( function(event){
+		event.preventDefault();
+		
+		/* ajax 입력 */
+		$.ajax( {
+			url : "/mysite2/api/guestbook/add",
+			type: "post",
+		    dataType: "json",
+		    data: "name=" + $("input[name='name']").val() + "&" + 
+		          "password=" + $("input[name='password']").val() + "&" +
+		          "content=" + $("textarea").val(),
+		    success: function( response ){
+				console.log( response );
+		    },
+		    error: function( XHR, status, error ){
+		       console.error( status + " : " + error );
+		   	}
+	    });
+		
+		return false;
+	});
+	
 	$( window ).scroll(function(){
 		var $window = $(this);
 		var scrollTop = $window.scrollTop();
@@ -78,7 +100,7 @@ $(function(){
 		<div id="content">
 			<div id="guestbook">
 				<h1>방명록</h1>
-				<form action="${pageContext.request.contextPath }/guestbook/add" method="post">
+				<form id="write-form" action="" method="post">
 					<input type="text" name="name" placeholder="이름">
 					<input type="password" name="password" placeholder="비밀번호">
 					<textarea name="content" placeholder="내용을 입력해 주세요."></textarea>

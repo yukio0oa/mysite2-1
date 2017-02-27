@@ -108,14 +108,14 @@ $(function(){
 	
 	dialogDeleteForm = $( "#dialog-form" ).dialog({
 		autoOpen: false,
-	    height: 400,
+	    height: 200,
 	    width: 350,
 	    modal: true,
 	    buttons: {
 	      "삭제": function(){
 	      },
 	      "취소": function() {
-	        dialog.dialog( "close" );
+	    	  $(this).dialog( "close" );
 	      }
 	    },
 	    close: function() {
@@ -147,19 +147,16 @@ $(function(){
 		<c:import url="/WEB-INF/views/include/footer.jsp" />
 	</div>
 	
-	<div id="dialog-form" title="Create new user" style="display:none">
-  		<p class="validateTips">All form fields are required.</p>
+	<div id="dialog-form" title="삭제하기" style="display:none">
+  		<p class="validateTips">삭제하기 위해 비밀번호를 입력하세요.</p>
  		<form>
-    		<fieldset>
-      			<label for="name">Name</label>
-      			<input type="text" name="name" id="name" value="Jane Smith" class="text ui-widget-content ui-corner-all">
-      			<label for="email">Email</label>
-      			<input type="text" name="email" id="email" value="jane@smith.com" class="text ui-widget-content ui-corner-all">
-      			<label for="password">Password</label>
-      			<input type="password" name="password" id="password" value="xxxxxxx" class="text ui-widget-content ui-corner-all">
- 			    <!-- Allow form submission with keyboard without duplicating the dialog button -->
+      			<label for="password">비밀번호</label>
+      			<input 
+      				type="password" 
+      				name="password" 
+      				id="password-delete" 
+      				value="" class="text ui-widget-content ui-corner-all">
       			<input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
-    		</fieldset>
   		</form>
 	</div>	
 </body>

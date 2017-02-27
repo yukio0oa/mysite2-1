@@ -8,7 +8,9 @@
 <title>mysite</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <link href="${pageContext.request.contextPath }/assets/css/user.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/jquery/jquery-1.9.0.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script>
 $(function(){
 	$( "#join-form" ).submit( function(){
@@ -77,7 +79,8 @@ $(function(){
 		    
 		       //통신 성공(response.result == "success" )
 		       if( response.data == "exist" ) {
-		    	   alert( "존재하는 이메일 입니다. 다른 이메일을 사용해 주세요" );
+		    	   $( "#dialogMessage" ).dialog();
+		    	   
 		    	   $("#email").
 		    	   val("").
 		    	   focus();
@@ -139,5 +142,9 @@ $(function(){
 		<c:import url="/WEB-INF/views/include/navigation.jsp"/>
 		<c:import url="/WEB-INF/views/include/footer.jsp"/>
 	</div>
+	
+	<div id="dialogMessage" title="이메일 중복체크" style="display:none">
+  		<p>존재하는 이메일 입니다.<br>다른 이메일을 사용해 주세요</p>
+	</div>	
 </body>
 </html>

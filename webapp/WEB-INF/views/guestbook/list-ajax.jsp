@@ -8,8 +8,11 @@
 <title>mysite</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <link href="${pageContext.request.contextPath }/assets/css/guestbook.css?a=1" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/jquery/jquery-1.9.0.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script>
+var dialogDeleteForm = null;
 var isEnd = false;
 var page = 0;
 var render = function( vo, prepend ){
@@ -26,6 +29,7 @@ var render = function( vo, prepend ){
 		$( "#list" ).append( html );
 	}
 }
+
 var fetchList = function(){
 	if( isEnd == true ) {
 		return;
@@ -58,7 +62,7 @@ var fetchList = function(){
 	   	}
   });
 }
-
+  
 $(function(){
 	$( "#write-form" ).submit( function(event){
 		// 폼의 submit 기본 이벤트 처리를 막는다.
@@ -95,6 +99,29 @@ $(function(){
 		}
 	});
 	
+	//삭제 버튼 클릭 이벤트 매핑(Live Event Mapping)
+	$( document ).on( "click", "#list li a", function(event){
+		event.preventDefault();
+		console.log( "!!!" );
+		dialogDeleteForm.dialog( "open" );
+	});
+	
+	dialogDeleteForm = $( "#dialog-form" ).dialog({
+		autoOpen: false,
+	    height: 400,
+	    width: 350,
+	    modal: true,
+	    buttons: {
+	      "삭제": function(){
+	      },
+	      "취소": function() {
+	        dialog.dialog( "close" );
+	      }
+	    },
+	    close: function() {
+		}
+	});
+	
 	//첫 페이지 로딩
 	fetchList();
 });
@@ -119,5 +146,21 @@ $(function(){
 		<c:import url="/WEB-INF/views/include/navigation.jsp" />
 		<c:import url="/WEB-INF/views/include/footer.jsp" />
 	</div>
+	
+	<div id="dialog-form" title="Create new user" style="display:none">
+  		<p class="validateTips">All form fields are required.</p>
+ 		<form>
+    		<fieldset>
+      			<label for="name">Name</label>
+      			<input type="text" name="name" id="name" value="Jane Smith" class="text ui-widget-content ui-corner-all">
+      			<label for="email">Email</label>
+      			<input type="text" name="email" id="email" value="jane@smith.com" class="text ui-widget-content ui-corner-all">
+      			<label for="password">Password</label>
+      			<input type="password" name="password" id="password" value="xxxxxxx" class="text ui-widget-content ui-corner-all">
+ 			    <!-- Allow form submission with keyboard without duplicating the dialog button -->
+      			<input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+    		</fieldset>
+  		</form>
+	</div>	
 </body>
 </html>

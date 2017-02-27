@@ -20,7 +20,7 @@ var render = function( vo, prepend ){
 			   "<strong>" + vo.name + "</strong>" +
 			   "<p>" + vo.content + "</p>" +
 			   "<strong>" + vo.regDate + "</strong>" +
-			   "<a href='' title='삭제'>삭제</a>" +
+			   "<a href='' title='삭제' data-no=' " + vo.no + "'>삭제</a>" +
 			   "</li>";
 	
 	if( prepend == true ) {
@@ -102,7 +102,9 @@ $(function(){
 	//삭제 버튼 클릭 이벤트 매핑(Live Event Mapping)
 	$( document ).on( "click", "#list li a", function(event){
 		event.preventDefault();
-		console.log( "!!!" );
+		var $a = $(this);
+		var no = $a.attr( "data-no" );
+		$("#no-delete").val( no );
 		dialogDeleteForm.dialog( "open" );
 	});
 	
@@ -113,6 +115,10 @@ $(function(){
 	    modal: true,
 	    buttons: {
 	      "삭제": function(){
+	    	  var no = $( "#no-delete" ).val();
+	    	  var password = $( "#password-delete" ).val();
+	    	  
+	    	  console.log( "삭제:" + no + ":" + password );
 	      },
 	      "취소": function() {
 	    	  $(this).dialog( "close" );
@@ -148,14 +154,16 @@ $(function(){
 	</div>
 	
 	<div id="dialog-form" title="삭제하기" style="display:none">
-  		<p class="validateTips">삭제하기 위해 비밀번호를 입력하세요.</p>
+  		<p class="validateTips" style="padding:20px 0; font-weight:bold; font-size:14px; color:#ff0000">삭제하기 위해 비밀번호를 입력하세요.</p>
  		<form>
       			<label for="password">비밀번호</label>
+      			<input type="hidden" id="no-delete" value=""/>
       			<input 
       				type="password" 
       				name="password" 
       				id="password-delete" 
-      				value="" class="text ui-widget-content ui-corner-all">
+      				value="" 
+      				class="text ui-widget-content ui-corner-all">
       			<input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
   		</form>
 	</div>	

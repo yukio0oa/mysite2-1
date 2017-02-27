@@ -61,6 +61,7 @@ var fetchList = function(){
 
 $(function(){
 	$( "#write-form" ).submit( function(event){
+		// 폼의 submit 기본 이벤트 처리를 막는다.
 		event.preventDefault();
 		
 		/* ajax 입력 */

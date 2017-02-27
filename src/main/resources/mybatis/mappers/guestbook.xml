@@ -3,6 +3,17 @@
 
 <mapper namespace="guestbook">
 
+	<select id="getByNo" resultType="guestbookvo" parameterType="long">
+		<![CDATA[
+		 select	 no, 
+				 name,
+				 content,
+				 to_char(reg_date, 'yyyy-mm-dd') as regDate 
+		    from guestbook
+		   where no = #{no }
+		]]>
+	</select>
+	
 	<select id="getList" resultType="guestbookvo">
 		<![CDATA[
 		 select	 no, 

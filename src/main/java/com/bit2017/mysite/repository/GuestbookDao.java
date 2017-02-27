@@ -15,7 +15,7 @@ public class GuestbookDao {
 	public boolean insert( GuestbookVo guestbookVo ) {
 		int count = sqlSession.insert( "guestbook.insert", guestbookVo );
 		// insert 후에 PK 받아내기
-		System.out.println( guestbookVo );
+		// System.out.println( guestbookVo );
 		return count == 1;
 	}
 	
@@ -24,6 +24,10 @@ public class GuestbookDao {
 		return (count == 1);
 	}
 
+	public GuestbookVo get( Long no ) {
+		return sqlSession.selectOne( "guestbook.getByNo", no );
+	}
+	
 	public List<GuestbookVo> getList() {
 		return sqlSession.selectList( "guestbook.getList" );
 	}

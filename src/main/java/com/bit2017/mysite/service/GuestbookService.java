@@ -21,6 +21,10 @@ public class GuestbookService {
 	public List<GuestbookVo> getMessageList( int page ) {
 		return guestbookDao.getList( page );
 	}
+
+	public GuestbookVo getMessage( Long no ) {
+		return guestbookDao.get( no );
+	}
 	
 	public boolean removeMessage( GuestbookVo guestbookVo ) {
 		return guestbookDao.delete(guestbookVo);

@@ -16,7 +16,7 @@ var dialogDeleteForm = null;
 var isEnd = false;
 var page = 0;
 var render = function( vo, prepend ){
-	var html = "<li>" +
+	var html = "<li id='li-"+ vo.no + "'>" +
 			   "<strong>" + vo.name + "</strong>" +
 			   "<p>" + vo.content + "</p>" +
 			   "<strong>" + vo.regDate + "</strong>" +
@@ -117,8 +117,48 @@ $(function(){
 	      "삭제": function(){
 	    	  var no = $( "#no-delete" ).val();
 	    	  var password = $( "#password-delete" ).val();
-	    	  
-	    	  console.log( "삭제:" + no + ":" + password );
+	    	  /* ajax 통신(삭제) */
+	  		  $.ajax( {
+				url : "/mysite2/api/guestbook/delete",
+				type: "post",
+			    dataType: "json",
+			    data: "no=" + no + "&password=" + password,
+			    success: function( response ){
+			    	console.log( response );
+			    	if( response.result != "success" ) {
+			    		console.log( response.message );
+			    		dialogDeleteForm.dialog( "close" );
+			    		return;
+			    	}
+			    	
+			    	//삭제 실패
+			    	if( response.data == -1 ) {
+			    		$( "#delete-tip-normal" ).hide();
+			    		$( "#delete-tip-error" ).show();
+			    		$( "#password-delete" ).
+			    		val( "" ).
+			    		focus();
+			    		return;
+			    	}
+			    	
+			    	/* 삭제 성공 */
+		    		
+			    	// li 엘리멘트 삭제
+			    	$( "#li-" + response.data ).remove();
+			    	
+			    	// 폼 리셋
+			    	$( "#delete-tip-normal" ).show();
+		    		$( "#delete-tip-error" ).hide();
+		    		$( "#password-delete" ).val( "" );
+		    		
+		    		// 다이알로그 닫기
+			    	dialogDeleteForm.dialog( "close" );
+			    	
+			    },
+			    error: function( XHR, status, error ){
+			       console.error( status + " : " + error );
+			   	}
+		    });	    	  
 	      },
 	      "취소": function() {
 	    	  $(this).dialog( "close" );
@@ -154,7 +194,8 @@ $(function(){
 	</div>
 	
 	<div id="dialog-form" title="삭제하기" style="display:none">
-  		<p class="validateTips" style="padding:20px 0; font-weight:bold; font-size:14px; color:#ff0000">삭제하기 위해 비밀번호를 입력하세요.</p>
+  		<p id="delete-tip-normal" class="validateTips" style="padding:20px 0; font-weight:bold; font-size:14px;">삭제하기 위해 비밀번호를 입력하세요.</p>
+  		<p id="delete-tip-error" class="validateTips" style="padding:20px 0; font-weight:bold; font-size:14px; color:#ff0000; display:none">비밀번호가 틀렸습니다.</p>
  		<form>
       			<label for="password">비밀번호</label>
       			<input type="hidden" id="no-delete" value=""/>

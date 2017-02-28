@@ -32,8 +32,7 @@
 
 		<!-- argument resolver -->
 		<mvc:argument-resolvers>
-			<bean
-				class="com.bit2017.security.AuthUserHandlerMethodArgumentResolver" />
+			<bean class="com.bit2017.security.AuthUserHandlerMethodArgumentResolver" />
 		</mvc:argument-resolvers>
 
 	</mvc:annotation-driven>
@@ -73,6 +72,15 @@
 		<property name="order" value="1" />
 	</bean>
 
+	<!-- 6. MessageSource -->
+	<bean id="messageSource"
+		class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basenames">
+			<list>
+				<value>messages/messages_ko</value>
+			</list>
+		</property>
+	</bean>
 
 	<context:annotation-config />
 

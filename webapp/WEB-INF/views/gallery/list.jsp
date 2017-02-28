@@ -51,108 +51,20 @@
 			<div id="gallery">
 				<div>
 					<h1>갤러리</h1>
-						<a href="" id="upload-image">이미지 올리기</a>
+					<a href="#" id="upload-image">이미지 올리기</a>
 				</div>
 				<ul>
+					<c:forEach var="vo" items="${list }">
 						<li>
-							<a	href="#"
+							<a	href="${pageContext.request.contextPath }/${baseURL }/${vo.saveFile }"
 								data-lightbox="gallery"
 								class="image"
-								style="background-image:url('${pageContext.request.contextPath }/gallery/im1.jpg')">&nbsp;</a>
-							<a	href="${pageContext.request.contextPath }/gallery/delete/1"
+								style="background-image:url('${pageContext.request.contextPath }/${baseURL }/${vo.saveFile }')">&nbsp;</a>
+							<a	href="${pageContext.request.contextPath }/gallery/delete/${vo.no }"
 								class="del-button"
 								title="삭제">삭제</a>
 						</li>
-						<li>
-							<a	href="#"
-								data-lightbox="gallery"
-								class="image"
-								style="background-image:url('${pageContext.request.contextPath }/assets/gallery/im2.jpg')">&nbsp;</a>
-							<a	href="${pageContext.request.contextPath }/gallery/delete/2"
-								class="del-button"
-								title="삭제">삭제</a>
-						</li>
-						<li>
-							<a	href="#"
-								data-lightbox="gallery"
-								class="image"
-								style="background-image:url('${pageContext.request.contextPath }/assets/gallery/im3.jpg')">&nbsp;</a>
-							<a	href="${pageContext.request.contextPath }/gallery/delete/3"
-								class="del-button"
-								title="삭제">삭제</a>
-						</li>
-						<li>
-							<a	href="#"
-								data-lightbox="gallery"
-								class="image"
-								style="background-image:url('${pageContext.request.contextPath }/assets/gallery/im4.jpg')">&nbsp;</a>
-							<a	href="${pageContext.request.contextPath }/gallery/delete/4"
-								class="del-button"
-								title="삭제">삭제</a>
-						</li>
-						<li>
-							<a	href="#"
-								data-lightbox="gallery"
-								class="image"
-								style="background-image:url('${pageContext.request.contextPath }/assets/gallery/im5.jpg')">&nbsp;</a>
-							<a	href="${pageContext.request.contextPath }/gallery/delete/5"
-								class="del-button"
-								title="삭제">삭제</a>
-						</li>																								
-						<li>
-							<a	href="#"
-								data-lightbox="gallery"
-								class="image"
-								style="background-image:url('${pageContext.request.contextPath }/assets/gallery/im6.jpg')">&nbsp;</a>
-							<a	href="${pageContext.request.contextPath }/gallery/delete/6"
-								class="del-button"
-								title="삭제">삭제</a>
-						</li>
-						<li>
-							<a	href="#"
-								data-lightbox="gallery"
-								class="image"
-								style="background-image:url('${pageContext.request.contextPath }/assets/gallery/im7.jpg')">&nbsp;</a>
-							<a	href="${pageContext.request.contextPath }/gallery/delete/7"
-								class="del-button"
-								title="삭제">삭제</a>
-						</li>
-						<li>
-							<a	href="#"
-								data-lightbox="gallery"
-								class="image"
-								style="background-image:url('${pageContext.request.contextPath }/assets/gallery/im8.jpg')">&nbsp;</a>
-							<a	href="${pageContext.request.contextPath }/gallery/delete/8"
-								class="del-button"
-								title="삭제">삭제</a>
-						</li>
-						<li>
-							<a	href="#"
-								data-lightbox="gallery"
-								class="image"
-								style="background-image:url('${pageContext.request.contextPath }/assets/gallery/im9.jpg')">&nbsp;</a>
-							<a	href="${pageContext.request.contextPath }/gallery/delete/9"
-								class="del-button"
-								title="삭제">삭제</a>
-						</li>
-						<li>
-							<a	href="#"
-								data-lightbox="gallery"
-								class="image"
-								style="background-image:url('${pageContext.request.contextPath }/assets/gallery/im10.jpg')">&nbsp;</a>
-							<a	href="${pageContext.request.contextPath }/gallery/delete/10"
-								class="del-button"
-								title="삭제">삭제</a>
-						</li>
-						<li>
-							<a	href="#"
-								data-lightbox="gallery"
-								class="image"
-								style="background-image:url('${pageContext.request.contextPath }/assets/gallery/im11.jpg')">&nbsp;</a>
-							<a	href="${pageContext.request.contextPath }/gallery/delete/11"
-								class="del-button"
-								title="삭제">삭제</a>
-						</li>																																																						
+					</c:forEach>	
 				</ul>	
 			</div>
 			<div id="dialog-upload-form" title="이미지 업로드" style="display:none">

@@ -7,6 +7,7 @@
 	<packaging>war</packaging>
 
 	<properties>
+	    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<org.springframework-version>4.0.1.RELEASE</org.springframework-version>
 		<jcloverslf4j.version>1.7.6</jcloverslf4j.version>
 		<logback.version>1.2.1</logback.version>
@@ -56,6 +57,18 @@
 			<version>4.2.0.Final</version>
 		</dependency>
 
+		<!-- common fileupload -->
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>1.2.1</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>1.4</version>
+		</dependency>
+		
 		<!-- spring jdbc -->
 		<dependency>
 			<groupId>org.springframework</groupId>

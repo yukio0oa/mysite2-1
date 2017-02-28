@@ -38,7 +38,7 @@ public class UserController {
 	}
 	
 	@RequestMapping( "/joinform" )
-	public String joinform(){
+	public String joinform( @ModelAttribute UserVo userVo ){
 		return "user/joinform";
 	}
 
